@@ -7,11 +7,13 @@ export const NewsProvider = ({ children }) => {
   const [articles, setArticles] = useState([])
   const [loading, setLoading] = useState(true)
   const [error, setError] = useState(null)
+  const [section, setSection] = useState('home')
 
   useEffect(() => {
     const fetchNews = async () => {
+      setLoading(true)
       try {
-        const data = await getTopStories('home')
+        const data = await getTopStories(section)
         setArticles(data)
       } catch (err) {
         setError('Errore nel caricamento delle notizie')
@@ -20,10 +22,10 @@ export const NewsProvider = ({ children }) => {
       }
     }
     fetchNews()
-  }, [])
+  }, [section])
 
   return (
-    <NewsContext.Provider value={{ articles, loading, error }}>
+    <NewsContext.Provider value={{ articles, loading, error, setSection }}>
       {children}
     </NewsContext.Provider>
   )
