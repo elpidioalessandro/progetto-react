@@ -6,7 +6,7 @@ const Navbar = () => {
   const { setSection } = useNews()
 
   return (
-    <nav style={{
+    <nav className="nav" style={{
       borderBottom: '1px solid #e0e0e0',
       padding: '10px 20px',
       display: 'flex',

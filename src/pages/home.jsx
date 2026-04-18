@@ -14,12 +14,11 @@ const Home = () => {
     <div>
       <Header />
       <Navbar />
-      <main style={{ maxWidth: '1200px', margin: '0 auto', padding: '20px' }}>
-        <div style={{
-          display: 'grid',
-          gridTemplateColumns: 'repeat(3, 1fr)',
-          gap: '20px'
-        }}>
+      <div className="grid" style={{
+         display: 'grid',
+         gridTemplateColumns: 'repeat(3, 1fr)',
+         gap: '20px'
+       }}>
           {articles.map((article) => (
             <div
               key={article.url}
@@ -54,8 +53,7 @@ const Home = () => {
             </div>
           ))}
         </div>
-      </main>
-    </div>
+      </div>
   )
 }
 
