@@ -1,9 +1,9 @@
-import { useNews } from '../context/NewsContext'
+import { useNavigate } from 'react-router-dom'
 
-const sections = ['home', 'world', 'technology', 'science', 'health', 'sports', 'arts']
+const sections = ['home', 'world', 'technology', 'science', 'health', 'arts']
 
 const Navbar = () => {
-  const { setSection } = useNews()
+  const navigate = useNavigate()
 
   return (
     <nav className="nav" style={{
@@ -16,7 +16,7 @@ const Navbar = () => {
       {sections.map((section) => (
         <button
           key={section}
-          onClick={() => setSection(section)}
+          onClick={() => section === 'home' ? navigate('/') : navigate(`/section/${section}`)}
           style={{
             background: 'none',
             border: 'none',

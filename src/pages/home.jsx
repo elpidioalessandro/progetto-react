@@ -22,7 +22,7 @@ const Home = () => {
           {articles.map((article) => (
             <div
               key={article.url}
-              onClick={() => navigate('/article', { state: { article } })}
+              onClick={() => navigate(`/article/${encodeURIComponent(article.uri)}`, { state: { article } })}
               style={{
                 borderBottom: '1px solid #e0e0e0',
                 paddingBottom: '20px',
