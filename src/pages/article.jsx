@@ -18,7 +18,7 @@ const Article = () => {
           onClick={() => navigate(-1)}
           style={{
             background: 'none',
-            border: 'none',
+            border: 'none', 
             cursor: 'pointer',
             fontFamily: 'Arial, sans-serif',
             marginBottom: '20px',

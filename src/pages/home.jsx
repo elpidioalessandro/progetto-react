@@ -18,7 +18,7 @@ const Home = () => {
          display: 'grid',
          gridTemplateColumns: 'repeat(3, 1fr)',
          gap: '20px'
-       }}>
+       }}> 
           {articles.map((article) => (
             <div
               key={article.url}

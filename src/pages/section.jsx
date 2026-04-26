@@ -19,7 +19,7 @@ const Section = () => {
       setLoading(false)
     }
     fetch()
-  }, [section])
+  }, [section]) 
 
   if (loading) return <p>Caricamento...</p>
 
