@@ -1,7 +1,7 @@
 import { BrowserRouter, Routes, Route } from 'react-router-dom'
 import Home from './pages/Home'
 import Article from './pages/Article'
-import Section from './pages/section'
+import Section from './pages/Section'
 
 const App = () => {
   return (
