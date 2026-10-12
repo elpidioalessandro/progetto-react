@@ -1,0 +1,68 @@
+name: CI
+
+on:
+  push:
+    branches: [main, devops]
+  pull_request:
+    branches: [main]
+
+jobs:
+  ci:
+    name: Lint e build
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout del codice
+        uses: actions/checkout@v5
+
+      - name: Setup Node
+        uses: actions/setup-node@v5
+        with:
+          node-version: 22
+          cache: npm
+
+      - name: Installazione dipendenze
+        run: npm ci
+
+      - name: Lint
+        run: npm run lint
+
+      - name: Build immagine Docker front
+        run: docker build -t nyt-front .
+
+      - name: Build immagine Docker server
+        run: docker build -t nyt-server ./server
+  
+  deploy:
+    name: Deploy su Netlify
+    needs: ci
+    if: github.event_name == 'push'
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout del codice
+        uses: actions/checkout@v5
+
+      - name: Setup Node
+        uses: actions/setup-node@v5
+        with:
+          node-version: 22
+          cache: npm
+
+      - name: Installazione dipendenze
+        run: npm ci
+
+      - name: Build del front end
+        run: npm run build
+
+      - name: Deploy staging
+        if: github.ref == 'refs/heads/devops'
+        run: npx netlify-cli deploy --no-build --dir=dist --functions=netlify/functions --alias=staging
+        env:
+          NETLIFY_AUTH_TOKEN: ${{ secrets.NETLIFY_AUTH_TOKEN }}
+          NETLIFY_SITE_ID: ${{ secrets.NETLIFY_SITE_ID }}
+
+      - name: Deploy produzione
+        if: github.ref == 'refs/heads/main'
+        run: npx netlify-cli deploy --no-build --prod --dir=dist --functions=netlify/functions
+        env:
+          NETLIFY_AUTH_TOKEN: ${{ secrets.NETLIFY_AUTH_TOKEN }}
+          NETLIFY_SITE_ID: ${{ secrets.NETLIFY_SITE_ID }}

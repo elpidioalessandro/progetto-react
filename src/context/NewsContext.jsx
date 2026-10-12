@@ -15,7 +15,7 @@ export const NewsProvider = ({ children }) => {
       try {
         const data = await getTopStories(section)
         setArticles(data)
-      } catch (err) {
+      } catch {
         setError('Errore nel caricamento delle notizie')
       } finally {
         setLoading(false)
@@ -31,4 +31,5 @@ export const NewsProvider = ({ children }) => {
   )
 }
 
+// eslint-disable-next-line react-refresh/only-export-components
 export const useNews = () => useContext(NewsContext)
