@@ -1,0 +1,33 @@
+name: CI
+
+on:
+  push:
+    branches: [main, devops]
+  pull_request:
+    branches: [main]
+
+jobs:
+  ci:
+    name: Lint e build
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout del codice
+        uses: actions/checkout@v4
+
+      - name: Setup Node
+        uses: actions/setup-node@v4
+        with:
+          node-version: 22
+          cache: npm
+
+      - name: Installazione dipendenze
+        run: npm ci
+
+      - name: Lint
+        run: npm run lint
+
+      - name: Build immagine Docker front
+        run: docker build -t nyt-front .
+
+      - name: Build immagine Docker server
+        run: docker build -t nyt-server ./server
