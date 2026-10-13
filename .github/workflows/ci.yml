@@ -52,6 +52,9 @@ jobs:
 
       - name: Build del front end
         run: npm run build
+        env:
+          VITE_SENTRY_DSN: ${{ vars.VITE_SENTRY_DSN }}
+          VITE_ENVIRONMENT: ${{ github.ref == 'refs/heads/main' && 'production' || 'staging' }}
 
       - name: Deploy staging
         if: github.ref == 'refs/heads/devops'
